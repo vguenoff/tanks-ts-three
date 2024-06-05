@@ -12,8 +12,8 @@ export default class GameScene {
   static get instance() {
     return this.#instance
   }
-  #width: number
-  #height: number
+  #width = window.innerWidth
+  #height = window.innerHeight
   #renderer: WebGLRenderer
   #camera: PerspectiveCamera
 
@@ -21,9 +21,6 @@ export default class GameScene {
   readonly #scene = new Scene()
 
   constructor() {
-    // dimensions
-    this.#width = window.innerWidth
-    this.#height = window.innerHeight
     // renderer
     this.#renderer = new WebGLRenderer({ alpha: true, antialias: true })
     this.#renderer.setPixelRatio(window.devicePixelRatio)
