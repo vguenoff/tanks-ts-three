@@ -8,54 +8,54 @@ import {
 } from 'three'
 
 export default class GameScene {
-  static #instance = new GameScene()
+  private static _instance = new GameScene()
   static get instance() {
-    return this.#instance
+    return this._instance
   }
-  #width = window.innerWidth
-  #height = window.innerHeight
-  #renderer: WebGLRenderer
-  #camera: PerspectiveCamera
+  private _width = window.innerWidth
+  private _height = window.innerHeight
+  private _renderer: WebGLRenderer
+  private _camera: PerspectiveCamera
 
   // three.js scene
-  readonly #scene = new Scene()
+  private readonly _scene = new Scene()
 
   constructor() {
     // renderer
-    this.#renderer = new WebGLRenderer({ alpha: true, antialias: true })
-    this.#renderer.setPixelRatio(window.devicePixelRatio)
-    this.#renderer.setSize(this.#width, this.#height)
+    this._renderer = new WebGLRenderer({ alpha: true, antialias: true })
+    this._renderer.setPixelRatio(window.devicePixelRatio)
+    this._renderer.setSize(this._width, this._height)
     // target element
     const targetElement = document.getElementById('app')
     if (!targetElement) {
       throw new Error('Unable to find target element.')
     }
-    targetElement.appendChild(this.#renderer.domElement)
+    targetElement.appendChild(this._renderer.domElement)
     // setup camera
-    const aspectRatio = this.#width / this.#height
-    this.#camera = new PerspectiveCamera(45, aspectRatio, 0.1, 1000)
-    this.#camera.position.set(0, 0, 3)
+    const aspectRatio = this._width / this._height
+    this._camera = new PerspectiveCamera(45, aspectRatio, 0.1, 1000)
+    this._camera.position.set(0, 0, 3)
     // listen to size changes
-    window.addEventListener('resize', this.#resize)
+    window.addEventListener('resize', this.resize)
   }
 
-  #resize = () => {
-    this.#width = window.innerWidth
-    this.#height = window.innerHeight
-    this.#renderer.setSize(this.#width, this.#height)
-    this.#camera.aspect = this.#width / this.#height
-    this.#camera.updateProjectionMatrix()
+  public resize = () => {
+    this._width = window.innerWidth
+    this._height = window.innerHeight
+    this._renderer.setSize(this._width, this._height)
+    this._camera.aspect = this._width / this._height
+    this._camera.updateProjectionMatrix()
   }
 
-  load() {
+  public load() {
     const geometry = new BoxGeometry(1, 1, 1)
-    const material = new MeshBasicMaterial({ color: 0x00ff00 })
+    const material = new MeshBasicMaterial({ color: 0x00ff })
     const cube = new Mesh(geometry, material)
-    this.#scene.add(cube)
+    this._scene.add(cube)
   }
 
-  render = () => {
+  public render = () => {
     requestAnimationFrame(this.render)
-    this.#renderer.render(this.#scene, this.#camera)
+    this._renderer.render(this._scene, this._camera)
   }
 }
