@@ -2,5 +2,5 @@ import GameScene from '@/scene/GameScene'
 
 import './style.css'
 
-GameScene.instance.load()
+await GameScene.instance.load()
 GameScene.instance.render()

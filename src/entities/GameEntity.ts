@@ -1,15 +1,12 @@
 import { Mesh, Vector3 } from 'three'
 
-abstract class GameEntity {
-  protected _position: Vector3
+export default abstract class GameEntity {
   protected _mesh: Mesh = new Mesh()
-
   get mesh() {
     return this._mesh
   }
 
-  constructor(position: Vector3) {
-    this._position = position
+  constructor(protected _position: Vector3) {
     this._mesh.position.set(
       this._position.x,
       this._position.y,
@@ -17,7 +14,6 @@ abstract class GameEntity {
     )
   }
 
-  // methods
-  load = async () => {}
-  update = () => {}
+  public load = async () => {}
+  public update = () => {}
 }
